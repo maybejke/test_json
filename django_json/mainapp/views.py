@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from django.http import JsonResponse
 from django.views.generic import View
-from django.contrib.auth.models import User
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import authentication, permissions
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Order, Product
 
@@ -24,7 +23,7 @@ class ImpExpView(View):
 
 class IndustryView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'mainapp/import-export.html', {})
+        return render(request, 'mainapp/industry.html', {})
 
 
 class ChartImportExportData(APIView):
@@ -33,8 +32,8 @@ class ChartImportExportData(APIView):
     * Requires token authentication.
     * Only admin users are able to access this view.
     """
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAdminUser]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         """
@@ -59,24 +58,24 @@ class ChartIndustryData(APIView):
     * Requires token authentication.
     * Only admin users are able to access this view.
     """
-    authentication_classes = []
-    permission_classes = [permissions.IsAdminUser]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
         """
         Return a list of all users.
         """
-        labels = []
-        industry = Product.objects.all().values('parent_id').distinct('parent_id')
+        labels = [label.name for label in Product.objects.filter(parent_id='1.0')]
 
-        for el in industry:
-            name = Product.objects.filter(parent_id__exact=industry['parent_id'])
-            for n in name:
-                labels.append(n.name)
+        industry_count = []
 
-        default_items = list(industry)
+        ind_id = [label.id for label in Product.objects.filter(parent_id='1.0')]
+        for i in ind_id:
+            num = Product.objects.filter(parent_id=i).count()
+            industry_count.append(num)
+
         data = {
             'labels': labels,
-            'default': default_items
+            'default': industry_count
         }
         return Response(data)
