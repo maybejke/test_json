@@ -14,7 +14,6 @@ class Dictionary(models.Model):
 
 
 class Product(models.Model):
-
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
@@ -26,6 +25,7 @@ class Product(models.Model):
     n_order = models.FloatField()
     methodology = models.CharField('Методология', max_length=256, blank=True)
     ei = models.CharField(blank=True, max_length=128)
+
     # dictionary = models.ForeignKey(Dictionary, related_name='dictionary', null=True,
     #                                on_delete=models.SET_NULL)
 
@@ -34,7 +34,6 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
