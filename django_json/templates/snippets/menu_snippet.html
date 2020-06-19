@@ -6,13 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'mainapp:index' %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'import-export' %}">Import/export</a>
+        <a class="nav-link" href="{% url 'mainapp:import-export' %}">Import/export</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'industry' %}">Industry</a>
+        <a class="nav-link" href="{% url 'mainapp:industry' %}">Industry</a>
       </li><li class="nav-item">
         <a class="nav-link" href="{% url 'account:login' %}">Login</a>
       </li><li class="nav-item">

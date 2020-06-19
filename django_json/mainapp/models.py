@@ -4,6 +4,9 @@ from django.db import models
 # Create your models here.
 
 class Dictionary(models.Model):
+    class Meta:
+        verbose_name = 'Словаь'
+        ordering = ('ids', )
     ids = models.FloatField('id', unique=True)
     dim_name = models.CharField('Название категории', max_length=256)
     ident = models.SlugField('Индекфикационный номер', unique=True)
@@ -25,9 +28,6 @@ class Product(models.Model):
     n_order = models.FloatField()
     methodology = models.CharField('Методология', max_length=256, blank=True)
     ei = models.CharField(blank=True, max_length=128)
-
-    # dictionary = models.ForeignKey(Dictionary, related_name='dictionary', null=True,
-    #                                on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'{self.name}'
