@@ -5,7 +5,7 @@ click==7.1.2
 data-wizard==1.3.0
 Django==3.0.7
 django-filter==2.3.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 html-json-forms==1.1.1
 idna==2.9
 itertable==2.0.0
